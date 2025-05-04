@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <title>Dashboard - SB Admin</title>
+    <link th:href="@{/css/styles.css}" rel="stylesheet" />
+    <script th:src="@{https://use.fontawesome.com/releases/v6.3.0/js/all.js}" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"> </script>
+    <script>
+        $(document).ready(() =>{
+            const avatarFile = $("#avatarFile");
+            avatarFile.change(function (e) {
+                const imgURL = URL.createObjectURL(e.target.files[0]);
+                $("#avatarPreview").attr("src", imgURL);
+                $("#avatarPreview").css("display", "block");
+            });
+        });
+    </script>
+</head>
+<body class="sb-nav-fixed">
+
+<!-- header  -->
+<div th:replace="admin/layout/header :: header"></div>
+
+<div id="layoutSidenav">
+
+    <div th:replace="admin/layout/sidebar :: sidebar"></div>
+
+    <div id="layoutSidenav_content">
+        <main>
+            <div class="container-fluid px-4">
+                <h1 class="mt-4">Dashboard</h1>
+                <ol class="breadcrumb mb-4">
+                    <li class="breadcrumb-item"><a href="/admin">Dashboard</a> </li>
+                    <li class="breadcrumb-item active">Product</li>
+                </ol>
+                <div>
+                    <div class="container mt-5">
+                        <div class="row">
+                            <div class="col-12 mx-auto">
+                                <div class="d-flex justify-content-between">
+                                    <h3>Thông tin sản phẩm</h3>
+                                </div>
+                                <hr/>
+                                <div class="card" style="width: 60%">
+                                    <ul class="list-group list-group-flush">
+                                        <li class="list-group-item">ID: [[${product.id}]]</li>
+                                        <li class="list-group-item">Tên sản phẩm: [[${product.name}]]</li>
+                                        <li class="list-group-item">
+                                            <img th:src="@{${product.image}}" alt="Ảnh sản phẩm" style="max-width: 200px;">
+                                        </li>
+                                        <li class="list-group-item">Loại: [[${product.category.name}]]</li>
+                                        <li class="list-group-item">Miêu tả chi tiết: [[${product.detailDesc}]]</li>
+                                        <li class="list-group-item">Miêu tả ngắn: [[${product.shortDesc}]]</li>
+                                        <li class="list-group-item">Giá: [[${T(java.lang.String).format('%,.0f', product.price)}]] vnđ</li>
+                                        <li class="list-group-item">Số lượng: [[${product.quantity}]]</li>
+                                        <li class="list-group-item">Đã bán: [[${product.sold}]]</li>
+                                        <li class="list-group-item">Hãng: [[${product.factory}]]</li>
+                                        <li class="list-group-item">Mục đích: [[${product.target}]]</li>
+                                    </ul>
+                                </div>
+                                <a th:href="@{/admin/products}" class="btn btn-primary mt-2">Back</a>
+
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+        </main>
+        <!-- footer -->
+        <div th:replace="admin/layout/footer :: footer"></div>
+
+    </div>
+</div>
+
+<script th:src="@{https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js}" crossorigin="anonymous"></script>
+<script th:src="@{/js/scripts.js}"></script>
+
+</body>
+</html>

@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trang chủ - Laptopshop</title>
+
+    <!-- Google Web Fonts -->
+    <link rel="preconnect" th:href="@{https://fonts.googleapis.com}">
+    <link rel="preconnect" th:href="@{https://fonts.gstatic.com}" crossorigin>
+    <link th:href="@{https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&family=Raleway:wght@600;800&display=swap}"
+          rel="stylesheet">
+
+    <!-- Icon Font Stylesheet -->
+    <link rel="stylesheet" th:href="@{https://use.fontawesome.com/releases/v5.15.4/css/all.css}"/>
+    <link th:href="@{https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css}" rel="stylesheet">
+
+    <!-- Libraries Stylesheet -->
+    <link th:href="@{/client/lib/lightbox/css/lightbox.min.css}" rel="stylesheet">
+    <link th:href="@{/client/lib/owlcarousel/assets/owl.carousel.min.css}" rel="stylesheet">
+
+    <!-- Customized Bootstrap Stylesheet -->
+    <link th:href="@{/client/css/bootstrap.min.css}" rel="stylesheet">
+
+    <!-- Template Stylesheet -->
+    <link th:href="@{/client/css/style.css}" rel="stylesheet">
+
+    <!-- Toast Notification CSS -->
+    <link th:href="@{https://cdnjs.cloudflare.com/ajax/libs/jquery-toast-plugin/1.3.2/jquery.toast.min.css}"
+          rel="stylesheet">
+</head>
+<body>
+
+
+<div th:replace="user/layout/header :: header"></div>
+
+<div class="container-fluid py-5">
+    <div class="container py-5">
+
+        <div class="row g-4 mb-5">
+            <div>
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a th:href="@{/}">Home</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Lịch sử mua hàng
+                        </li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+        <div class="table-responsive">
+            <table class="table">
+                <thead>
+                <tr>
+                    <th scope="col">Order Id</th>
+                    <th scope="col">Người nhận</th>
+                    <th scope="col">Địa chỉ</th>
+                    <th scope="col">Số điện thoại</th>
+                    <th scope="col">Tổng giá</th>
+                    <th scope="col">Trạng thái đơn hàng</th>
+                    <th scope="col"></th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:if="${#lists.isEmpty(orders)}">
+                    <td colspan="6">
+                        Bạn không có đơn đặt hàng nào.
+                    </td>
+                </tr>
+
+                </tr>
+                <tr th:each="order  : ${orders}">
+                    <td>
+                        <p class="mb-0 mt-4">[[${order.id}]]</p>
+                    </td>
+                    <td>
+                        <p class="mb-0 mt-4">[[${order.receiverName}]]</p>
+                    </td>
+                    <td>
+                        <p class="mb-0 mt-4">[[${order.receiverAddress}]]</p>
+                    </td>
+                    <td>
+                        <p class="mb-0 mt-4">[[${order.receiverPhone}]]</p>
+                    </td>
+                    <td>
+                        <p class="mb-0 mt-4">[[${T(java.lang.String).format('%,.0f', order.totalPrice)}]] vnđ</p>
+                    </td>
+                    <td>
+                        <p class="mb-0 mt-4">[[${order.status}]]</p>
+                    </td>
+
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<div th:replace="user/layout/footer :: footer"></div>
+
+<script th:src="@{https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js}"></script>
+<script th:src="@{https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js}"></script>
+<script th:src="@{/client/lib/easing/easing.min.js}"></script>
+<script th:src="@{/client/lib/waypoints/waypoints.min.js}"></script>
+<script th:src="@{/client/lib/lightbox/js/lightbox.min.js}"></script>
+<script th:src="@{/client/lib/owlcarousel/owl.carousel.min.js}"></script>
+
+<!-- Template Javascript -->
+<script th:src="@{/client/js/main.js}"></script>
+<script th:src="@{https://cdnjs.cloudflare.com/ajax/libs/jquery-toast-plugin/1.3.2/jquery.toast.min.js}"></script>
+</body>
+</html>

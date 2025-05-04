@@ -1,0 +1,81 @@
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<!-- Navbar start -->
+<div class="container-fluid fixed-top" th:fragment="header">
+    <div class="container px-0">
+        <nav class="navbar navbar-light bg-white navbar-expand-xl">
+            <a th:href="@{/}" class="navbar-brand"><h1 class="text-primary display-6">Mobile Shop</h1></a>
+            <button class="navbar-toggler py-2 px-3" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarCollapse">
+                <span class="fa fa-bars text-primary"></span>
+            </button>
+            <div class="collapse navbar-collapse bg-white justify-content-between mx-5" id="navbarCollapse">
+                <div class="navbar-nav">
+                    <a th:href="@{/}" class="nav-item nav-link active">Trang chủ</a>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="sanphamDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Sản phẩm
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="sanphamDropdown">
+                            <li th:each="category : ${categoryList}">
+                                <a class="dropdown-item" th:href="@{/search/category/{id}(id=${category.id})}" th:text="${category.name}"></a>
+                            </li>
+                        </ul>
+                    </li>
+                </div>
+                <form th:action="@{/search}" method="get" class="form-inline d-flex align-items-center ml-auto">
+                    <input class="form-control mr-2" type="search" name="keyword" placeholder="Search" aria-label="Search">
+                    <button class="btn btn-outline-success" type="submit">Search</button>
+                </form>
+                <div class="d-flex m-3 me-0">
+                    <!-- Hiển thị giỏ hàng và hồ sơ người dùng nếu đã đăng nhập -->
+                    <div sec:authorize="isAuthenticated()">
+                        <a th:href="@{/cart}" class="position-relative me-4 my-auto">
+                            <i class="fa fa-shopping-bag fa-2x"></i>
+                            <span class="position-absolute bg-secondary rounded-circle d-flex align-items-center justify-content-center text-dark px-1"
+                                  style="top: -5px; left: 15px; height: 20px; min-width: 20px;"
+                                  th:text="${#ctx.session.sum}">
+                            </span>
+                        </a>
+                    </div>
+
+                    <!-- Hồ sơ người dùng -->
+                    <div sec:authorize="isAuthenticated()">
+                        <div class="dropdown my-auto">
+                            <a href="#" class="dropdown" role="button" id="dropdownMenuLink"
+                               data-bs-toggle="dropdown" aria-expanded="false">
+                                <i class="fas fa-user fa-2x"></i>
+                            </a>
+
+                            <ul class="dropdown-menu dropdown-menu-end p-4" aria-labelledby="dropdownMenuLink">
+                                <li class="d-flex align-items-center flex-column" style="min-width: 300px;">
+                                    <img style="width: 150px; height: 150px; border-radius: 50%; overflow: hidden;"
+                                         th:src="${#ctx.session.avatar}"/>
+                                    <div class="text-center my-3">
+                                        <span th:text="${#ctx.session.fullName}">Tên người dùng</span>
+                                    </div>
+                                </li>
+
+                                <li><a class="dropdown-item" th:href="@{/}">Quản lý tài khoản</a></li>
+                                <li><a class="dropdown-item" th:href="@{/order-history}">Lịch sử mua hàng</a></li>
+                                <li><hr class="dropdown-divider"></li>
+                                <li>
+                                    <form th:action="@{/logout}" method="post">
+                                        <button class="dropdown-item" type="submit">Đăng xuất</button>
+                                    </form>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Hiển thị nút đăng nhập nếu chưa đăng nhập -->
+                    <div sec:authorize="isAnonymous()">
+                        <a th:href="@{/login}" class="position-relative me-4 my-auto">Đăng nhập</a>
+                    </div>
+
+                </div>
+            </div>
+        </nav>
+    </div>
+</div>
+<!-- Navbar End -->
