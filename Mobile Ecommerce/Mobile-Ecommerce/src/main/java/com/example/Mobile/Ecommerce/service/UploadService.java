@@ -43,6 +43,8 @@ public class UploadService {
             String fileExtension = originalFilename.substring(originalFilename.lastIndexOf("."));
             String uniqueFilename = System.currentTimeMillis() + fileExtension;
 
+            //uuid
+
             // Lưu file
             File serverFile = new File(dir.getAbsolutePath() + File.separator + uniqueFilename);
             file.transferTo(serverFile);
