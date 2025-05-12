@@ -10,7 +10,7 @@ COPY pom.xml .
 RUN mvn dependency:go-offline -B
 
 # Copy toàn bộ mã nguồn
-COPY ../src ./src 
+COPY src ./src
 
 # Build
 RUN mvn clean package -DskipTests
