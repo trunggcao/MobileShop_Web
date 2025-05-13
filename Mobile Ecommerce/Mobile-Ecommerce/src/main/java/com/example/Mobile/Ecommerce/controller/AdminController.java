@@ -221,7 +221,7 @@ public class AdminController {
         List<Product> products = this.productService.getAllProduct();
         model.addAttribute("products", products);
         System.out.println("check" + products);
-        return "/admin/products";
+        return "admin/products";
     }
     // them san pham
     @GetMapping("/admin/products/create")
@@ -307,7 +307,7 @@ public class AdminController {
     public String getLstOrder(Model model){
         List<Order> orders = this.orderService.getAllOrder();
         model.addAttribute("orders", orders);
-        return "/admin/orders";
+        return "admin/orders";
     }
 
     @GetMapping("/admin/orders/{id}")
